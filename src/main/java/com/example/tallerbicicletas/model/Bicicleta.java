@@ -15,7 +15,7 @@ public class Bicicleta {
         this.serial = serial;
     }
 
-    //Getters y setters
+    //Getters y setterss
     public String getMarca() {
         return marca;
     }
