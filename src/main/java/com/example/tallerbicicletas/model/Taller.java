@@ -10,6 +10,7 @@ public class Taller {
     private String nit;
 
     private List<Cliente> clientes;
+    private ArrayList<Mecanico> mecanicos = new ArrayList<>();
 
     public Taller(String nombre, String direccion, String nit){
         this.nombre = nombre;
@@ -17,11 +18,22 @@ public class Taller {
         this.nit = nit;
         this.clientes = new ArrayList<>();
     }
-
+    //Método para agregar clientes
     public void agregarCliente(Cliente cliente) {
         clientes.add(cliente);
     }
 
+    //Método para agregar mecánicos
+    public void agregarMecanico(Mecanico mecanico) {
+        mecanicos.add(mecanico);
+    }
+
+    //Método para ver cuántos mecánicos hay
+    public int getCantidadMecanicos() {
+        return mecanicos.size();
+    }
+
+    //Getters y setters
     public String getNombre() {
         return nombre;
     }
@@ -34,11 +46,13 @@ public class Taller {
         return nit;
     }
 
+    //Método toString
     @Override
     public String toString() {
         return "Taller: " + nombre +
                 "\nDirección: " + direccion +
                 "\nNIT: " + nit +
-                "\nClientes registrados: " + clientes.size();
+                "\nClientes registrados: " + clientes.size() +
+                "\nMecánicos registrados: " + mecanicos.size();
     }
 }
