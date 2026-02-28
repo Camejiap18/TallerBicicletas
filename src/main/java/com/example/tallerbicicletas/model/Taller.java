@@ -36,6 +36,9 @@ public class Taller {
 
     @Override
     public String toString() {
-        return "Taller: " + nombre + "\nDirección: " + direccion + "\nNIT: " + nit + "\nClientes registrados: " + clientes.size();
+        return "Taller: " + nombre +
+                "\nDirección: " + direccion +
+                "\nNIT: " + nit +
+                "\nClientes registrados: " + clientes.size();
     }
 }
