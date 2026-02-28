@@ -5,4 +5,6 @@ module com.example.tallerbicicletas {
 
     opens com.example.tallerbicicletas to javafx.fxml;
     exports com.example.tallerbicicletas;
+    exports com.example.tallerbicicletas.controller;
+    opens com.example.tallerbicicletas.controller to javafx.fxml;
 }

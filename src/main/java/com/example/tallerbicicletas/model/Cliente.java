@@ -18,4 +18,9 @@ public class Cliente extends Persona {
     public String getDireccion() {
         return direccion;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + super.toString() + ", telefono='" + telefono + '\'' + ", direccion='" + direccion + '\'' + '}';
+    }
 }

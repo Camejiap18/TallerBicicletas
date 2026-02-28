@@ -1,8 +1,9 @@
-package com.example.tallerbicicletas;
+package com.example.tallerbicicletas.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import com.example.tallerbicicletas.model.Cliente;
 
 public class HelloController {
 
@@ -20,8 +21,10 @@ public class HelloController {
         String telefono = txtTelefono.getText();
         String direccion = txtDireccion.getText();
 
+        Cliente cliente = new Cliente(nombre, identificacion, telefono, direccion);
+
         System.out.println("Cliente guardado:");
-        System.out.println(nombre + " - " + identificacion + " - " + telefono + " - " + direccion);
+        System.out.println(cliente);
 
         txtNombre.clear();
         txtIdentificacion.clear();

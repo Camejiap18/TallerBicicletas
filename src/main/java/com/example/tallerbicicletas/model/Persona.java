@@ -18,6 +18,11 @@ public class Persona {
         return identificacion;
     }
 
+    @Override
+    public String toString() {
+        return "nombre='" + nombre + '\'' + ", identificacion='" + identificacion + '\'';
+    }
+
 
 
 }
