@@ -9,97 +9,62 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="20.0"
-      xmlns="http://javafx.com/javafx/25"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.tallerbicicletas.controller.HelloController">
-
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tallerbicicletas.controller.HelloController">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-
-    <children>
-        <TabPane prefHeight="226.0" prefWidth="747.0" tabClosingPolicy="UNAVAILABLE">
-            <tabs>
-
-                <!-- CLIENTES -->
-                <Tab text="Clientes">
-                    <content>
-                        <AnchorPane prefHeight="180.0" prefWidth="200.0">
-                            <children>
-
-                                <Label layoutY="9.0" text="Nombre Completo:"/>
-                                <TextField fx:id="txtNombre" layoutX="105.0" layoutY="5.0"/>
-
-                                <Label layoutY="38.0" text="Identificación:"/>
-                                <TextField fx:id="txtIdentificacion" layoutX="105.0" layoutY="34.0"/>
-
-                                <Label layoutY="66.0" text="Teléfono:"/>
-                                <TextField fx:id="txtTelefono" layoutX="105.0" layoutY="62.0"/>
-
-                                <Label layoutY="99.0" text="Dirección:"/>
-                                <TextField fx:id="txtDireccion" layoutX="105.0" layoutY="95.0"/>
-
-                                <Button fx:id="btnGuardarCliente"
-                                        layoutX="132.0" layoutY="137.0"
-                                        mnemonicParsing="false"
-                                        onAction="#guardarCliente"
-                                        text="Guardar Cliente"/>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-
-                <!-- BICICLETAS -->
-                <Tab text="Bicicletas">
-                    <content>
-                        <AnchorPane prefHeight="180.0" prefWidth="200.0"/>
-                    </content>
-                </Tab>
-
-                <!-- MECÁNICOS -->
-                <Tab text="Mecánicos">
-                    <content>
-                        <AnchorPane prefHeight="180.0" prefWidth="200.0">
-                            <children>
-
-                                <Label layoutY="6.0" text="Nombre:"/>
-                                <TextField fx:id="txtNombreMecanico" layoutX="77.0" layoutY="2.0"/>
-
-                                <Label layoutX="-2.0" layoutY="32.0" text="Identificación:"/>
-                                <TextField fx:id="txtIdentificacionMecanico" layoutX="77.0" layoutY="28.0"/>
-
-                                <Label layoutY="58.0" text="Especialidad:"/>
-                                <TextField fx:id="txtEspecialidad" layoutX="77.0" layoutY="54.0"/>
-
-                                <Label layoutX="7.0" layoutY="90.0" text="Sueldo:"/>
-                                <TextField fx:id="txtSueldo" layoutX="77.0" layoutY="86.0"/>
-
-                                <Button fx:id="btnGuardarMecanico"
-                                        layoutX="95.0" layoutY="129.0"
-                                        mnemonicParsing="false"
-                                        onAction="#guardarMecanico"
-                                        text="Guardar Mecánico"/>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-
-                <!-- ÓRDENES -->
-                <Tab text="Órdenes">
-                    <content>
-                        <AnchorPane prefHeight="180.0" prefWidth="200.0"/>
-                    </content>
-                </Tab>
-
-                <!-- CONSULTAS -->
-                <Tab text="Consultas">
-                    <content>
-                        <AnchorPane prefHeight="180.0" prefWidth="200.0"/>
-                    </content>
-                </Tab>
-
-            </tabs>
-        </TabPane>
-    </children>
+   <children>
+      <TabPane prefHeight="226.0" prefWidth="747.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Clientes">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="txtNombre" layoutY="9.0" text="Nombre Completo: " />
+                        <TextField layoutX="105.0" layoutY="5.0" />
+                        <Label fx:id="txtIdentificacion" layoutY="38.0" prefWidth="84.0" text=" Identificación:" />
+                        <TextField layoutX="105.0" layoutY="34.0" />
+                        <Label fx:id="txtTelefono" layoutY="66.0" text="Teléfono:" />
+                        <TextField layoutX="105.0" layoutY="62.0" />
+                        <Label fx:id="txtDireccion" layoutY="99.0" text="Dirección:" />
+                        <TextField layoutX="105.0" layoutY="95.0" />
+                        <Button fx:id="btnGuardarCliente" layoutX="132.0" layoutY="137.0" mnemonicParsing="false" onAction="#guardarCliente" text="Guadar Cliente" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Bicicletas">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+            <Tab text="Mecánicos">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="txtNombreMecanico" layoutY="6.0" text="Nombre: " />
+                        <TextField layoutX="77.0" layoutY="2.0" />
+                        <Label fx:id="txtIdentificacionMecanico" layoutX="-2.0" layoutY="32.0" text="Identificación: " />
+                        <TextField layoutX="77.0" layoutY="28.0" />
+                        <Label fx:id="txtEspecialidad" layoutY="58.0" text="Especialidad: " />
+                        <TextField layoutX="77.0" layoutY="54.0" />
+                        <Label fx:id="txtSueldo" layoutX="7.0" layoutY="90.0" text="Sueldo" />
+                        <TextField layoutX="77.0" layoutY="86.0" />
+                        <Button fx:id="btnGuardarMecanico" layoutX="95.0" layoutY="129.0" mnemonicParsing="false" onAction="#guardarMecanico" text="Guardar Mecánico" />
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Órdenes">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="Consultas">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
 </VBox>

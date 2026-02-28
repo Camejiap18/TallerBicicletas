@@ -5,13 +5,16 @@ import java.util.List;
 
 public class Taller {
 
+    //Atributos del Taller
     private String nombre;
     private String direccion;
     private String nit;
 
+    //listas del taller
     private List<Cliente> clientes;
     private ArrayList<Mecanico> mecanicos = new ArrayList<>();
 
+    //Constructor
     public Taller(String nombre, String direccion, String nit){
         this.nombre = nombre;
         this.direccion = direccion;

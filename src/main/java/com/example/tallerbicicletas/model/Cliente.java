@@ -5,12 +5,14 @@ public class Cliente extends Persona {
     private String telefono;
     private String direccion;
 
+    //Constructor
     public Cliente(String nombre, String identificacion, String telefono, String direccion){
         super(nombre, identificacion);
         this.telefono = telefono;
         this.direccion = direccion;
     }
 
+    //Getters
     public String getTelefono() {
         return telefono;
     }
@@ -19,8 +21,13 @@ public class Cliente extends Persona {
         return direccion;
     }
 
+    //Método toString
     @Override
     public String toString() {
-        return "Cliente{" + super.toString() + ", telefono='" + telefono + '\'' + ", direccion='" + direccion + '\'' + '}';
+        return "Cliente{" + super.toString() +
+                ", telefono='" + telefono +
+                '\'' + ", direccion='" +
+                direccion + '\'' +
+                '}';
     }
 }
