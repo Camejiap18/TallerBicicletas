@@ -1,5 +1,6 @@
 package com.example.tallerbicicletas.controller;
 
+import com.example.tallerbicicletas.model.Bicicleta;
 import com.example.tallerbicicletas.model.Cliente;
 import com.example.tallerbicicletas.model.Mecanico;
 import com.example.tallerbicicletas.model.Taller;
@@ -22,6 +23,12 @@ public class HelloController {
     @FXML private TextField txtEspecialidad;
     @FXML private TextField txtSueldo;
     @FXML private Button btnGuardarMecanico;
+
+    @FXML private TextField txtMarca;
+    @FXML private TextField txtModelo;
+    @FXML private TextField txtColor;
+    @FXML private TextField txtSerial;
+    @FXML private Button btnGuardarBicicleta;
 
     private final Taller taller = new Taller("Taller BiciCentral", "Armenia", "123456ABC");
 
@@ -74,5 +81,26 @@ public class HelloController {
         txtIdentificacionMecanico.clear();
         txtEspecialidad.clear();
         txtSueldo.clear();
+    }
+
+    @FXML
+    private void guardarBicicleta(){
+
+        String marca = txtMarca.getText();
+        String modelo = txtModelo.getText();
+        String color = txtColor.getText();
+        String serial = txtSerial.getText();
+
+        Bicicleta bicicleta = new Bicicleta(marca, modelo, color, serial);
+        taller.agregarBicicleta(bicicleta);
+
+        System.out.println("Bicicleta guardada:");
+        System.out.println(bicicleta);
+        System.out.println(taller);
+
+        txtMarca.clear();
+        txtModelo.clear();
+        txtColor.clear();
+        txtSerial.clear();
     }
 }

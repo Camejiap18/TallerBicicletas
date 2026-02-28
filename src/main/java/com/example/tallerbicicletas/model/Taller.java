@@ -13,6 +13,7 @@ public class Taller {
     //listas del taller
     private List<Cliente> clientes;
     private ArrayList<Mecanico> mecanicos = new ArrayList<>();
+    private List<Bicicleta> bicicletas = new ArrayList<>();
 
     //Constructor
     public Taller(String nombre, String direccion, String nit){
@@ -36,6 +37,11 @@ public class Taller {
         return mecanicos.size();
     }
 
+    //Método para agregar bicicletas
+    public void agregarBicicleta(Bicicleta bicicleta){
+        bicicletas.add(bicicleta);
+    }
+
     //Getters y setters
     public String getNombre() {
         return nombre;
@@ -56,6 +62,7 @@ public class Taller {
                 "\nDirección: " + direccion +
                 "\nNIT: " + nit +
                 "\nClientes registrados: " + clientes.size() +
-                "\nMecánicos registrados: " + mecanicos.size();
+                "\nMecánicos registrados: " + mecanicos.size() +
+                "\nBicicletas registradas: " + bicicletas.size();
     }
 }
