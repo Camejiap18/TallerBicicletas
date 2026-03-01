@@ -45,6 +45,18 @@ public class Taller {
         ordenes.add(orden);
     }
 
+    //Método para buscar una bicicleta por el serial
+    public Bicicleta buscarBicicletaPorSerial(String serial) {
+        if (serial == null) return null;
+        String s = serial.trim();
+        for (Bicicleta b : bicicletas) {
+            if (b.getSerial() != null && b.getSerial().trim().equalsIgnoreCase(s)) {
+                return b;
+            }
+        }
+        return null;
+    }
+
     // Getters
     public String getNombre() {
         return nombre;

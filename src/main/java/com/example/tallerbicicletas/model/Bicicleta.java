@@ -46,9 +46,27 @@ public class Bicicleta {
     public int getAnio() { return anio; }
     public void setAnio(int anio) { this.anio = anio; }
 
+    //Método toString
     @Override
     public String toString() {
         String dueno = (cliente != null) ? cliente.getNombre() : "Sin cliente";
         return serial + " - " + marca + " " + modelo + " (" + tipo + ", " + anio + ") - " + dueno;
+    }
+
+    //Método para comparar si una bicicleta es la misma que otra
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Bicicleta otra = (Bicicleta) obj;
+        if (serial == null || otra.serial == null) return false;
+
+        return serial.trim().equalsIgnoreCase(otra.serial.trim());
+    }
+
+    @Override
+    public int hashCode() {
+        return serial == null ? 0 : serial.trim().toLowerCase().hashCode();
     }
 }
