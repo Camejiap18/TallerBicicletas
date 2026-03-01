@@ -3,6 +3,7 @@ package com.example.tallerbicicletas.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 
 public class Orden {
 
@@ -66,6 +67,23 @@ public class Orden {
         }
     }
 
+    //Método para que se vea bonita la órden por fecha
+    public String toTextoBonito() {
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        return  "Cliente: " + cliente.getNombre() + " (" + cliente.getIdentificacion() + ")\n"
+                + "Bicicleta: " + bicicleta.getMarca() + " " + bicicleta.getModelo()
+                + " | Serial: " + bicicleta.getSerial()
+                + " | Tipo: " + bicicleta.getTipo() + "\n"
+                + "Mecánico: " + mecanico.getNombre() + " (" + mecanico.getIdentificacion() + ")"
+                + " | Esp: " + mecanico.getEspecialidad() + "\n"
+                + "Fecha ingreso: " + fechaIngreso.format(f) + "  Hora: " + horaIngreso + "\n"
+                + "Motivo: " + motivoServicio + "\n"
+                + "Problema: " + descripcionProblema + "\n"
+                + "Estado: " + estado + "\n"
+                + "Costo: " + costoTotal + "\n";
+    }
+
     //Getters y settters
     public String getDescripcionProblema() {
         return descripcionProblema;
@@ -90,6 +108,20 @@ public class Orden {
     public LocalDate getFechaIngreso() {
         return fechaIngreso;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public Mecanico getMecanico() {
+        return mecanico;
+    }
+
+    public String getMotivoServicio() {
+        return motivoServicio;
+    }
+
+
 
     //Método toString
     @Override

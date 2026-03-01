@@ -8,6 +8,7 @@ import com.example.tallerbicicletas.model.Taller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -186,18 +187,65 @@ public class HelloController {
     private void verHistorialBicicleta() {
 
         Bicicleta bici = comboHistorialBici.getValue();
-        if(bici == null){
+
+        if (bici == null) {
             txtAreaConsultas.setText("Seleccione una bicicleta.");
             return;
         }
 
-        StringBuilder historial = new StringBuilder();
-        historial.append("Historial de la bicicleta:\n\n");
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        for(Orden o : taller.getOrdenes()){
-            if(o.getBicicleta().equals(bici)){
-                historial.append(o).append("\n\n");
+        StringBuilder historial = new StringBuilder();
+        historial.append("===== HISTORIAL DE LA BICICLETA =====\n\n");
+
+        // (Opcional) info de la bicicleta al inicio
+        historial.append("Bicicleta: ")
+                .append(bici.getMarca()).append(" ")
+                .append(bici.getModelo())
+                .append(" | Serial: ").append(bici.getSerial())
+                .append(" | Tipo: ").append(bici.getTipo())
+                .append("\n\n");
+
+        boolean encontro = false;
+
+        for (Orden o : taller.getOrdenes()) {
+            if (o.getBicicleta().equals(bici)) {
+                encontro = true;
+
+                historial.append("Cliente: ")
+                        .append(o.getCliente().getNombre())
+                        .append("\n");
+
+                historial.append("Mecánico: ")
+                        .append(o.getMecanico().getNombre())
+                        .append("\n");
+
+                historial.append("Motivo del servicio: ")
+                        .append(o.getMotivoServicio())
+                        .append("\n");
+
+                historial.append("Descripción del problema: ")
+                        .append(o.getDescripcionProblema())
+                        .append("\n");
+
+                historial.append("Estado: ")
+                        .append(o.getEstado())
+                        .append("\n");
+
+                if (o.getFechaIngreso() != null) {
+                    historial.append("Fecha de ingreso: ")
+                            .append(o.getFechaIngreso().format(formatoFecha))
+                            .append("\n");
+                } else {
+                    historial.append("Fecha de ingreso: (sin fecha)\n");
+                }
+
+                historial.append("------------------------------------\n\n");
             }
+        }
+
+        if (!encontro) {
+            historial.append("No hay órdenes registradas para esta bicicleta.\n");
         }
 
         txtAreaConsultas.setText(historial.toString());
@@ -209,23 +257,66 @@ public class HelloController {
 
         LocalDate fecha = datePickerOrden.getValue();
 
-        if(fecha == null){
+        if (fecha == null) {
             txtAreaConsultas.setText("Seleccione una fecha.");
             return;
         }
 
-        StringBuilder resultado = new StringBuilder();
-        resultado.append("Órdenes del día ").append(fecha).append(":\n\n");
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        for(Orden o : taller.getOrdenes()){
-            if(o.getFechaIngreso().equals(fecha)){
-                resultado.append(o).append("\n\n");
+        StringBuilder resultado = new StringBuilder();
+        resultado.append("===== ÓRDENES DEL DÍA ")
+                .append(fecha.format(formatoFecha))
+                .append(" =====\n\n");
+
+        boolean encontro = false;
+
+        for (Orden o : taller.getOrdenes()) {
+
+            if (o.getFechaIngreso() != null && o.getFechaIngreso().equals(fecha)) {
+
+                encontro = true;
+
+                resultado.append("Cliente: ")
+                        .append(o.getCliente().getNombre())
+                        .append("\n");
+
+                resultado.append("Bicicleta: ")
+                        .append(o.getBicicleta().getMarca())
+                        .append(" ")
+                        .append(o.getBicicleta().getModelo())
+                        .append("\n");
+
+                resultado.append("Mecánico: ")
+                        .append(o.getMecanico().getNombre())
+                        .append("\n");
+
+                resultado.append("Motivo del servicio: ")
+                        .append(o.getMotivoServicio())
+                        .append("\n");
+
+                resultado.append("Descripción del problema: ")
+                        .append(o.getDescripcionProblema())
+                        .append("\n");
+
+                resultado.append("Estado: ")
+                        .append(o.getEstado())
+                        .append("\n");
+
+                resultado.append("Fecha de ingreso: ")
+                        .append(o.getFechaIngreso().format(formatoFecha))
+                        .append("\n");
+
+                resultado.append("------------------------------------\n\n");
             }
+        }
+
+        if (!encontro) {
+            resultado.append("No hay órdenes registradas en esa fecha.");
         }
 
         txtAreaConsultas.setText(resultado.toString());
     }
-
     //Método para mostrar las consultas
     @FXML
     private void mostrarConsultas() {
