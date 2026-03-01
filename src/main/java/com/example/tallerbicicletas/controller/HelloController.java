@@ -50,6 +50,7 @@ public class HelloController {
     @FXML private TextField txtDiagnosticoOrden;
     @FXML private TextField txtTrabajoOrden;
     @FXML private TextField txtCostoTrabajo;
+    @FXML private TextField txtRepuestoOrden;
 
     // --- CONSULTAS ---
     @FXML private TextArea txtAreaConsultas;
@@ -232,6 +233,10 @@ public class HelloController {
         ordenActual = new Orden(cliente, bicicleta, mecanico, descripcion, motivo);
         taller.agregarOrden(ordenActual);
 
+        // Mano de obra automática del mecánico (5% del sueldo)
+        double manoObra = mecanico.getSueldo() * 0.05;
+        ordenActual.agregarTrabajo("Mano de obra (" + mecanico.getNombre() + ")", manoObra);
+
         if (txtDiagnosticoOrden != null && txtDiagnosticoOrden.getText() != null) {
             ordenActual.setDiagnostico(txtDiagnosticoOrden.getText());
         }
@@ -246,6 +251,8 @@ public class HelloController {
         comboClienteOrden.setValue(null);
         comboBicicletaOrden.setValue(null);
         comboMecanicoOrden.setValue(null);
+
+        refrescarCombosOrden();
     }
 
     //Método para cerrar la órden
@@ -267,6 +274,41 @@ public class HelloController {
         ordenActual.cerrarOrden(diagnosticoFinal);
 
         txtAreaConsultas.setText("Orden cerrada.\n\n" + ordenActual.toTextoBonito());
+
+        txtMotivoOrden.clear();
+        txtProblemaOrden.clear();
+        txtDiagnosticoOrden.clear();
+        txtTrabajoOrden.clear();
+        txtCostoTrabajo.clear();
+        if (txtRepuestoOrden != null) txtRepuestoOrden.clear();
+
+        comboClienteOrden.setValue(null);
+        comboBicicletaOrden.setValue(null);
+        comboMecanicoOrden.setValue(null);
+
+        ordenActual = null;
+    }
+
+    //Método para agregar repuesto en la órden
+    @FXML
+    private void agregarRepuestoOrden() {
+
+        if (ordenActual == null) {
+            txtAreaConsultas.setText("Primero crea una orden. Luego puedes agregar repuestos.");
+            return;
+        }
+
+        String rep = txtRepuestoOrden.getText();
+
+        if (rep == null || rep.trim().isEmpty()) {
+            txtAreaConsultas.setText("Escribe el nombre del repuesto.");
+            return;
+        }
+
+        ordenActual.agregarRepuesto(rep);
+        txtAreaConsultas.setText("Repuesto agregado.\n\n" + ordenActual.toTextoBonito());
+
+        txtRepuestoOrden.clear();
     }
 
     //Método para ver el historial de la bicicleta
@@ -280,12 +322,10 @@ public class HelloController {
             return;
         }
 
-        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
         StringBuilder historial = new StringBuilder();
         historial.append("===== HISTORIAL DE LA BICICLETA =====\n\n");
 
-        // (Opcional) info de la bicicleta al inicio
+        // Info de la bicicleta al inicio
         historial.append("Bicicleta: ")
                 .append(bici.getMarca()).append(" ")
                 .append(bici.getModelo())
@@ -299,35 +339,9 @@ public class HelloController {
             if (o.getBicicleta().equals(bici)) {
                 encontro = true;
 
-                historial.append("Cliente: ")
-                        .append(o.getCliente().getNombre())
-                        .append("\n");
-
-                historial.append("Mecánico: ")
-                        .append(o.getMecanico().getNombre())
-                        .append("\n");
-
-                historial.append("Motivo del servicio: ")
-                        .append(o.getMotivoServicio())
-                        .append("\n");
-
-                historial.append("Descripción del problema: ")
-                        .append(o.getDescripcionProblema())
-                        .append("\n");
-
-                historial.append("Estado: ")
-                        .append(o.getEstado())
-                        .append("\n");
-
-                if (o.getFechaIngreso() != null) {
-                    historial.append("Fecha de ingreso: ")
-                            .append(o.getFechaIngreso().format(formatoFecha))
-                            .append("\n");
-                } else {
-                    historial.append("Fecha de ingreso: (sin fecha)\n");
-                }
-
-                historial.append("------------------------------------\n\n");
+                // Muestra TODO: fecha/hora, motivo, problema, diagnóstico, trabajos, repuestos, costo total, estado
+                historial.append(o.toTextoBonito())
+                        .append("\n------------------------------------\n\n");
             }
         }
 
@@ -337,7 +351,6 @@ public class HelloController {
 
         txtAreaConsultas.setText(historial.toString());
     }
-
     //Método para buscar la órden por fecha
     @FXML
     private void buscarOrdenPorFecha() {

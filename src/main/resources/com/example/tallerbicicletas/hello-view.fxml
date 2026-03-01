@@ -116,23 +116,72 @@
                 <!-- ÓRDENES -->
                 <Tab text="Órdenes">
                     <content>
-                        <AnchorPane prefHeight="220.0" prefWidth="700.0">
+                        <AnchorPane prefHeight="240.0" prefWidth="700.0">
                             <children>
-                        <HBox layoutX="14.0" layoutY="14.0">
-                           <children>
-                                      <ComboBox fx:id="comboClienteOrden" prefWidth="220.0" promptText="Seleccione el Cliente" />
-                                      <ComboBox fx:id="comboBicicletaOrden" prefWidth="220.0" promptText="Seleccione la Bicicleta" />
-                                      <ComboBox fx:id="comboMecanicoOrden" prefWidth="220.0" promptText="Seleccione el Mecánico" />
-                           </children>
-                        </HBox>
-                                <TextField fx:id="txtMotivoOrden" layoutX="14.0" layoutY="53.0" prefWidth="250.0" promptText="Motivo del Servicio" />
-                                <TextField fx:id="txtProblemaOrden" layoutX="14.0" layoutY="90.0" prefWidth="250.0" promptText="Descripción del Problema" />
 
-                                <Button fx:id="btnCrearOrden" layoutX="293.0" layoutY="90.0" mnemonicParsing="false" onAction="#crearOrden" text="Crear Orden" />
-                        <TextField fx:id="txtDiagnosticoOrden" layoutX="14.0" layoutY="129.0" prefHeight="26.0" prefWidth="250.0" promptText="Diagnóstico" />
-                        <TextField fx:id="txtTrabajoOrden" layoutX="14.0" layoutY="165.0" prefHeight="26.0" prefWidth="250.0" promptText="Trabajo Realizado (ej: Ajuste frenos)" />
-                        <TextField fx:id="txtCostoTrabajo" layoutX="14.0" layoutY="204.0" prefHeight="26.0" prefWidth="250.0" promptText="Costo (ej: 50000)" />
-                        <Button fx:id="btnCerrarOrden" layoutX="290.0" layoutY="142.0" mnemonicParsing="false" onAction="#cerrarOrden" text="Cerrar Orden" />
+                                <HBox layoutX="14.0" layoutY="14.0" spacing="10.0">
+                                    <children>
+                                        <ComboBox fx:id="comboClienteOrden" prefWidth="220.0" promptText="Seleccione el Cliente" />
+                                        <ComboBox fx:id="comboBicicletaOrden" prefWidth="220.0" promptText="Seleccione la Bicicleta" />
+                                        <ComboBox fx:id="comboMecanicoOrden" prefWidth="220.0" promptText="Seleccione el Mecánico" />
+                                    </children>
+                                </HBox>
+
+                                <TextField fx:id="txtMotivoOrden"
+                                           layoutX="14.0" layoutY="53.0"
+                                           prefWidth="250.0"
+                                           promptText="Motivo del Servicio" />
+
+                                <TextField fx:id="txtProblemaOrden"
+                                           layoutX="14.0" layoutY="90.0"
+                                           prefWidth="250.0"
+                                           promptText="Descripción del Problema" />
+
+                                <Button fx:id="btnCrearOrden"
+                                        layoutX="293.0" layoutY="90.0"
+                                        mnemonicParsing="false"
+                                        onAction="#crearOrden"
+                                        text="Crear Orden" />
+
+                                <TextField fx:id="txtDiagnosticoOrden"
+                                           layoutX="14.0" layoutY="129.0"
+                                           prefHeight="26.0" prefWidth="250.0"
+                                           promptText="Diagnóstico" />
+
+                                <TextField fx:id="txtTrabajoOrden"
+                                           layoutX="14.0" layoutY="165.0"
+                                           prefHeight="26.0" prefWidth="250.0"
+                                           promptText="Trabajo Realizado (ej: Ajuste frenos)" />
+
+                                <TextField fx:id="txtCostoTrabajo"
+                                           layoutX="14.0" layoutY="204.0"
+                                           prefHeight="26.0" prefWidth="250.0"
+                                           promptText="Costo (ej: 50000)" />
+
+                                <Button fx:id="btnAgregarTrabajo"
+                                        layoutX="293.0" layoutY="165.0"
+                                        mnemonicParsing="false"
+                                        onAction="#agregarTrabajoOrden"
+                                        text="Agregar Trabajo" />
+
+                                <TextField fx:id="txtRepuestoOrden"
+                                           layoutX="430.0" layoutY="129.0"
+                                           prefHeight="26.0" prefWidth="250.0"
+                                           promptText="Repuesto usado (ej: pastillas freno)" />
+
+                                <Button fx:id="btnAgregarRepuesto"
+                                        layoutX="430.0" layoutY="165.0"
+                                        mnemonicParsing="false"
+                                        onAction="#agregarRepuestoOrden"
+                                        text="Agregar Repuesto" />
+
+                                <!-- Cerrar orden -->
+                                <Button fx:id="btnCerrarOrden"
+                                        layoutX="293.0" layoutY="204.0"
+                                        mnemonicParsing="false"
+                                        onAction="#cerrarOrden"
+                                        text="Cerrar Orden" />
+
                             </children>
                         </AnchorPane>
                     </content>

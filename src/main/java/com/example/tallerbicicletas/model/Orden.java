@@ -15,9 +15,10 @@ public class Orden {
     private String motivoServicio;
     private String descripcionProblema;
 
-    private String diagnostico; // diagnóstico (se puede actualizar al cerrar)
+    private String diagnostico;
     private ArrayList<String> trabajosRealizados; // lista de trabajos
     private double costoTotal;
+    private ArrayList<String> repuestosUsados; // lista de repuestos usados
 
     private String estado; // Pendiente, En proceso, Finalizada
 
@@ -41,6 +42,7 @@ public class Orden {
         this.diagnostico = ""; // vacío al inicio
         this.trabajosRealizados = new ArrayList<>();
         this.costoTotal = 0.0;
+        this.repuestosUsados = new ArrayList<>();
 
         this.estado = "Pendiente";
     }
@@ -57,6 +59,18 @@ public class Orden {
         }
     }
 
+    //Método para agregar un repuesto usado en la orden.
+    public void agregarRepuesto(String repuesto) {
+        if (repuesto != null && !repuesto.trim().isEmpty()) {
+            repuestosUsados.add(repuesto.trim());
+        }
+    }
+
+    //Retorna la lista de repuestos usados en la orden.
+    public ArrayList<String> getRepuestosUsados() {
+        return repuestosUsados;
+    }
+
     // Cambiar estado manualmente
     public void cambiarEstado(String nuevoEstado) {
         if (nuevoEstado != null && !nuevoEstado.trim().isEmpty()) {
@@ -66,12 +80,8 @@ public class Orden {
 
     // Cerrar la orden (poner diagnóstico final y marcar finalizada)
     public void cerrarOrden(String diagnosticoFinal) {
-        if (!trabajosRealizados.isEmpty()) {
-            this.diagnostico = diagnosticoFinal;
-            this.estado = "Finalizada";
-        } else {
-            System.out.println("No se puede cerrar una orden sin trabajos realizados.");
-        }
+        this.diagnostico = diagnosticoFinal;
+        this.estado = "Finalizada";
     }
 
     // Texto bonito para mostrar en TextArea (historial / por fecha)
@@ -106,6 +116,15 @@ public class Orden {
         } else {
             for (String t : trabajosRealizados) {
                 sb.append("  - ").append(t).append("\n");
+            }
+        }
+
+        sb.append("Repuestos usados:\n");
+        if (repuestosUsados.isEmpty()) {
+            sb.append("  - (sin repuestos)\n");
+        } else {
+            for (String r : repuestosUsados) {
+                sb.append("  - ").append(r).append("\n");
             }
         }
 
