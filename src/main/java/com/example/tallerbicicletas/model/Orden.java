@@ -7,20 +7,24 @@ import java.time.format.DateTimeFormatter;
 
 public class Orden {
 
-    //Atributos de la órden
+    // Atributos de la orden
     private Cliente cliente;
     private Bicicleta bicicleta;
     private Mecanico mecanico;
-    private String descripcionProblema;
-    private String estado;
-    private LocalDate fechaIngreso;
-    private LocalTime horaIngreso;
+
     private String motivoServicio;
-    private String diagnostico;
-    private ArrayList<String> trabajosRealizados;
+    private String descripcionProblema;
+
+    private String diagnostico; // diagnóstico (se puede actualizar al cerrar)
+    private ArrayList<String> trabajosRealizados; // lista de trabajos
     private double costoTotal;
 
-    //Constructor
+    private String estado; // Pendiente, En proceso, Finalizada
+
+    private LocalDate fechaIngreso;
+    private LocalTime horaIngreso;
+
+    // Constructor
     public Orden(Cliente cliente, Bicicleta bicicleta, Mecanico mecanico,
                  String descripcionProblema, String motivoServicio) {
 
@@ -34,30 +38,33 @@ public class Orden {
         this.fechaIngreso = LocalDate.now();
         this.horaIngreso = LocalTime.now();
 
-        this.diagnostico = " ";
+        this.diagnostico = ""; // vacío al inicio
         this.trabajosRealizados = new ArrayList<>();
         this.costoTotal = 0.0;
 
         this.estado = "Pendiente";
     }
 
-    //Método para agregar un trabajo
+    // Agregar un trabajo (y sumar costo)
     public void agregarTrabajo(String trabajo, double costo) {
-        if (trabajo != null && !trabajo.isEmpty() && costo > 0) {
-            trabajosRealizados.add(trabajo);
+        if (trabajo != null && !trabajo.trim().isEmpty() && costo >= 0) {
+            trabajosRealizados.add(trabajo + " ($" + costo + ")");
             costoTotal += costo;
+
             if (estado.equals("Pendiente")) {
                 estado = "En proceso";
             }
         }
     }
 
-    //Método para actualizar el estado de la óden
+    // Cambiar estado manualmente
     public void cambiarEstado(String nuevoEstado) {
-        this.estado = nuevoEstado;
+        if (nuevoEstado != null && !nuevoEstado.trim().isEmpty()) {
+            this.estado = nuevoEstado;
+        }
     }
 
-    //Método para finalizar la órdden
+    // Cerrar la orden (poner diagnóstico final y marcar finalizada)
     public void cerrarOrden(String diagnosticoFinal) {
         if (!trabajosRealizados.isEmpty()) {
             this.diagnostico = diagnosticoFinal;
@@ -67,24 +74,61 @@ public class Orden {
         }
     }
 
-    //Método para que se vea bonita la órden por fecha
+    // Texto bonito para mostrar en TextArea (historial / por fecha)
     public String toTextoBonito() {
         DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter h = DateTimeFormatter.ofPattern("HH:mm");
 
-        return  "Cliente: " + cliente.getNombre() + " (" + cliente.getIdentificacion() + ")\n"
-                + "Bicicleta: " + bicicleta.getMarca() + " " + bicicleta.getModelo()
-                + " | Serial: " + bicicleta.getSerial()
-                + " | Tipo: " + bicicleta.getTipo() + "\n"
-                + "Mecánico: " + mecanico.getNombre() + " (" + mecanico.getIdentificacion() + ")"
-                + " | Esp: " + mecanico.getEspecialidad() + "\n"
-                + "Fecha ingreso: " + fechaIngreso.format(f) + "  Hora: " + horaIngreso + "\n"
-                + "Motivo: " + motivoServicio + "\n"
-                + "Problema: " + descripcionProblema + "\n"
-                + "Estado: " + estado + "\n"
-                + "Costo: " + costoTotal + "\n";
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Cliente: ").append(cliente.getNombre())
+                .append(" (").append(cliente.getIdentificacion()).append(")\n");
+
+        sb.append("Bicicleta: ").append(bicicleta.getMarca()).append(" ").append(bicicleta.getModelo())
+                .append(" | Serial: ").append(bicicleta.getSerial())
+                .append(" | Tipo: ").append(bicicleta.getTipo()).append("\n");
+
+        sb.append("Mecánico: ").append(mecanico.getNombre())
+                .append(" (").append(mecanico.getIdentificacion()).append(")")
+                .append(" | Esp: ").append(mecanico.getEspecialidad()).append("\n");
+
+        sb.append("Fecha ingreso: ").append(fechaIngreso.format(f))
+                .append("  Hora: ").append(horaIngreso.format(h)).append("\n");
+
+        sb.append("Motivo: ").append(motivoServicio).append("\n");
+        sb.append("Problema: ").append(descripcionProblema).append("\n");
+
+        sb.append("Diagnóstico: ").append(diagnostico.isBlank() ? "(sin diagnóstico)" : diagnostico).append("\n");
+
+        sb.append("Trabajos realizados:\n");
+        if (trabajosRealizados.isEmpty()) {
+            sb.append("  - (sin trabajos)\n");
+        } else {
+            for (String t : trabajosRealizados) {
+                sb.append("  - ").append(t).append("\n");
+            }
+        }
+
+        sb.append("Estado: ").append(estado).append("\n");
+        sb.append("Costo total: $").append(costoTotal).append("\n");
+
+        return sb.toString();
     }
 
-    //Getters y settters
+    // --- Getters y Setters ---
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public Bicicleta getBicicleta() {
+        return bicicleta;
+    }
+
+    public Mecanico getMecanico() {
+        return mecanico;
+    }
+
     public String getDescripcionProblema() {
         return descripcionProblema;
     }
@@ -93,45 +137,54 @@ public class Orden {
         this.descripcionProblema = descripcionProblema;
     }
 
+    public String getMotivoServicio() {
+        return motivoServicio;
+    }
+
+    public void setMotivoServicio(String motivoServicio) {
+        this.motivoServicio = motivoServicio;
+    }
+
+    public String getDiagnostico() {
+        return diagnostico;
+    }
+
+    public void setDiagnostico(String diagnostico) {
+        this.diagnostico = diagnostico;
+    }
+
+    public ArrayList<String> getTrabajosRealizados() {
+        return trabajosRealizados;
+    }
+
+    public double getCostoTotal() {
+        return costoTotal;
+    }
+
     public String getEstado() {
         return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public Bicicleta getBicicleta() {
-        return bicicleta;
     }
 
     public LocalDate getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public LocalTime getHoraIngreso() {
+        return horaIngreso;
     }
 
-    public Mecanico getMecanico() {
-        return mecanico;
-    }
-
-    public String getMotivoServicio() {
-        return motivoServicio;
-    }
-
-
-
-    //Método toString
     @Override
     public String toString() {
         return "Orden{" +
                 "cliente=" + cliente +
                 ", bicicleta=" + bicicleta +
                 ", mecanico=" + mecanico +
+                ", motivo='" + motivoServicio + '\'' +
                 ", problema='" + descripcionProblema + '\'' +
                 ", estado='" + estado + '\'' +
+                ", fechaIngreso=" + fechaIngreso +
+                ", horaIngreso=" + horaIngreso +
+                ", costoTotal=" + costoTotal +
                 '}';
     }
 }
