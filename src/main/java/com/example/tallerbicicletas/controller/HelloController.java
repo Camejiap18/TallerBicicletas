@@ -53,6 +53,7 @@ public class HelloController {
 
     // --- CONSULTAS ---
     @FXML private TextArea txtAreaConsultas;
+    @FXML private TextField txtSerialConsulta;
     @FXML private ComboBox<Bicicleta> comboHistorialBici;
     @FXML private DatePicker datePickerOrden;
 
@@ -172,6 +173,28 @@ public class HelloController {
         comboClienteBici.setValue(null);
 
         refrescarCombosOrden();
+    }
+
+    //Método para buscar las bicicletas por el serial
+    @FXML
+    private void buscarHistorialPorSerial() {
+
+        String serial = txtSerialConsulta.getText();
+
+        if (serial == null || serial.trim().isEmpty()) {
+            txtAreaConsultas.setText("Ingrese un serial.");
+            return;
+        }
+
+        Bicicleta bici = taller.buscarBicicletaPorSerial(serial);
+
+        if (bici == null) {
+            txtAreaConsultas.setText("No existe una bicicleta con serial: " + serial);
+            return;
+        }
+
+        comboHistorialBici.setValue(bici);
+        verHistorialBicicleta();
     }
 
     //Método para crear la órden
