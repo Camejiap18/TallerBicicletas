@@ -2,56 +2,50 @@ package com.example.tallerbicicletas.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ArrayList;
-import com.example.tallerbicicletas.model.Orden;
 
 public class Taller {
 
-    //Atributos del Taller
+    // Atributos del Taller
     private String nombre;
     private String direccion;
     private String nit;
 
-    //listas del taller
+    // Listas del taller
     private List<Cliente> clientes;
-    private ArrayList<Mecanico> mecanicos = new ArrayList<>();
-    private List<Bicicleta> bicicletas = new ArrayList<>();
-    private ArrayList<Orden> ordenes;
+    private List<Mecanico> mecanicos;
+    private List<Bicicleta> bicicletas;
+    private List<Orden> ordenes;
 
-    //Constructor
-    public Taller(String nombre, String direccion, String nit){
+    // Constructor
+    public Taller(String nombre, String direccion, String nit) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.nit = nit;
+
         this.clientes = new ArrayList<>();
+        this.mecanicos = new ArrayList<>();
+        this.bicicletas = new ArrayList<>();
         this.ordenes = new ArrayList<>();
     }
-    //Método para agregar clientes
+
+    // Métodos para agregar
     public void agregarCliente(Cliente cliente) {
         clientes.add(cliente);
     }
 
-    //Método para agregar mecánicos
     public void agregarMecanico(Mecanico mecanico) {
         mecanicos.add(mecanico);
     }
 
-    //Método para ver cuántos mecánicos hay
-    public int getCantidadMecanicos() {
-        return mecanicos.size();
-    }
-
-    //Método para agregar bicicletas
-    public void agregarBicicleta(Bicicleta bicicleta){
+    public void agregarBicicleta(Bicicleta bicicleta) {
         bicicletas.add(bicicleta);
     }
 
-    //Método para agregar una órden
     public void agregarOrden(Orden orden) {
         ordenes.add(orden);
     }
 
-    //Getters y setters
+    // Getters
     public String getNombre() {
         return nombre;
     }
@@ -64,19 +58,11 @@ public class Taller {
         return nit;
     }
 
-    public int getCantidadOrdenes() {
-        return ordenes.size();
-    }
-
-    public ArrayList<Orden> getOrdenes() {
-        return ordenes;
-    }
-
     public List<Cliente> getClientes() {
         return clientes;
     }
 
-    public ArrayList<Mecanico> getMecanicos() {
+    public List<Mecanico> getMecanicos() {
         return mecanicos;
     }
 
@@ -84,7 +70,20 @@ public class Taller {
         return bicicletas;
     }
 
-    //Método toString
+    public List<Orden> getOrdenes() {
+        return ordenes;
+    }
+
+    // Contadores
+    public int getCantidadMecanicos() {
+        return mecanicos.size();
+    }
+
+    public int getCantidadOrdenes() {
+        return ordenes.size();
+    }
+
+    // toString
     @Override
     public String toString() {
         return "Taller: " + nombre +

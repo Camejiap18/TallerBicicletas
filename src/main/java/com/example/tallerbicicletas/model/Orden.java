@@ -83,6 +83,14 @@ public class Orden {
         this.estado = estado;
     }
 
+    public Bicicleta getBicicleta() {
+        return bicicleta;
+    }
+
+    public LocalDate getFechaIngreso() {
+        return fechaIngreso;
+    }
+
     //Método toString
     @Override
     public String toString() {

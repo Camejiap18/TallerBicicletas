@@ -7,6 +7,9 @@ import com.example.tallerbicicletas.model.Orden;
 import com.example.tallerbicicletas.model.Taller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import java.time.LocalDate;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 import com.example.tallerbicicletas.model.TipoBicicleta;
@@ -42,11 +45,18 @@ public class HelloController {
     @FXML private TextField txtMotivoOrden;
     @FXML private TextField txtProblemaOrden;
 
+    // --- CONSULTAS ---
+    @FXML private TextArea txtAreaConsultas;
+    @FXML private ComboBox<Bicicleta> comboHistorialBici;
+    @FXML private DatePicker datePickerOrden;
+
     //Método para refresacar los combos
     private void refrescarCombosOrden() {
         comboClienteOrden.getItems().setAll(taller.getClientes());
         comboBicicletaOrden.getItems().setAll(taller.getBicicletas());
         comboMecanicoOrden.getItems().setAll(taller.getMecanicos());
+        comboHistorialBici.getItems().setAll(taller.getBicicletas());
+
     }
 
     private final Taller taller = new Taller("Taller BiciCentral", "Armenia", "123456ABC");
@@ -83,7 +93,6 @@ public class HelloController {
 
         double sueldo;
         try {
-            // Por si escriben "1.500.000" o "1,500,000" etc:
             String sueldoTexto = txtSueldo.getText()
                     .replace(".", "")
                     .replace(",", "");
@@ -136,6 +145,7 @@ public class HelloController {
         txtColor.clear();
         txtSerial.clear();
         comboTipo.setValue(null);
+        comboHistorialBici.getItems().setAll(taller.getBicicletas());
 
         refrescarCombosOrden();
     }
@@ -171,6 +181,58 @@ public class HelloController {
         comboMecanicoOrden.setValue(null);
     }
 
+    //Método para ver el historial de la bicicleta
+    @FXML
+    private void verHistorialBicicleta() {
+
+        Bicicleta bici = comboHistorialBici.getValue();
+        if(bici == null){
+            txtAreaConsultas.setText("Seleccione una bicicleta.");
+            return;
+        }
+
+        StringBuilder historial = new StringBuilder();
+        historial.append("Historial de la bicicleta:\n\n");
+
+        for(Orden o : taller.getOrdenes()){
+            if(o.getBicicleta().equals(bici)){
+                historial.append(o).append("\n\n");
+            }
+        }
+
+        txtAreaConsultas.setText(historial.toString());
+    }
+
+    //Método para buscar la órden por fecha
+    @FXML
+    private void buscarOrdenPorFecha() {
+
+        LocalDate fecha = datePickerOrden.getValue();
+
+        if(fecha == null){
+            txtAreaConsultas.setText("Seleccione una fecha.");
+            return;
+        }
+
+        StringBuilder resultado = new StringBuilder();
+        resultado.append("Órdenes del día ").append(fecha).append(":\n\n");
+
+        for(Orden o : taller.getOrdenes()){
+            if(o.getFechaIngreso().equals(fecha)){
+                resultado.append(o).append("\n\n");
+            }
+        }
+
+        txtAreaConsultas.setText(resultado.toString());
+    }
+
+    //Método para mostrar las consultas
+    @FXML
+    private void mostrarConsultas() {
+
+        txtAreaConsultas.setText(taller.toString());
+    }
+
     //Método para incializar el combobox
     @FXML
     public void initialize() {
@@ -183,7 +245,8 @@ public class HelloController {
         comboBicicletaOrden.getItems().setAll(taller.getBicicletas());
         comboMecanicoOrden.getItems().setAll(taller.getMecanicos());
 
+        comboHistorialBici.getItems().setAll(taller.getBicicletas());
+
         refrescarCombosOrden();
     }
-
 }
