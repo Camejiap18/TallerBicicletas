@@ -57,13 +57,29 @@ public class HelloController {
     @FXML private ComboBox<Bicicleta> comboHistorialBici;
     @FXML private DatePicker datePickerOrden;
 
-    //Método para refresacar los combos
+    // Método para refrescar los combos (Órdenes, Bicicletas y Consultas)
     private void refrescarCombosOrden() {
-        comboClienteOrden.getItems().setAll(taller.getClientes());
-        comboBicicletaOrden.getItems().setAll(taller.getBicicletas());
-        comboMecanicoOrden.getItems().setAll(taller.getMecanicos());
-        comboHistorialBici.getItems().setAll(taller.getBicicletas());
 
+        // Bicicletas: combo de cliente dueño
+        if (comboClienteBici != null) {
+            comboClienteBici.getItems().setAll(taller.getClientes());
+        }
+
+        // Órdenes
+        if (comboClienteOrden != null) {
+            comboClienteOrden.getItems().setAll(taller.getClientes());
+        }
+        if (comboBicicletaOrden != null) {
+            comboBicicletaOrden.getItems().setAll(taller.getBicicletas());
+        }
+        if (comboMecanicoOrden != null) {
+            comboMecanicoOrden.getItems().setAll(taller.getMecanicos());
+        }
+
+        // Consultas
+        if (comboHistorialBici != null) {
+            comboHistorialBici.getItems().setAll(taller.getBicicletas());
+        }
     }
 
     private final Taller taller = new Taller("Taller BiciCentral", "Armenia", "123456ABC");

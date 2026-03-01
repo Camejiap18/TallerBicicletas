@@ -53,22 +53,36 @@
                         <AnchorPane prefHeight="220.0" prefWidth="700.0">
                             <children>
 
-                                <Label layoutX="14.0" layoutY="14.0" text="Marca:" />
-                                <TextField fx:id="txtMarca" layoutX="60.0" layoutY="10.0" />
+                                <Label layoutX="14.0" layoutY="14.0" text="Marca:"/>
+                                <TextField fx:id="txtMarca" layoutX="90.0" layoutY="10.0" prefWidth="180.0"/>
 
-                                <Label layoutX="14.0" layoutY="43.0" text="Modelo:" />
-                                <TextField fx:id="txtModelo" layoutX="60.0" layoutY="39.0" />
+                                <Label layoutX="14.0" layoutY="43.0" text="Modelo:"/>
+                                <TextField fx:id="txtModelo" layoutX="90.0" layoutY="39.0" prefWidth="180.0"/>
 
-                                <Label layoutX="14.0" layoutY="74.0" text="Color:" />
-                                <TextField fx:id="txtColor" layoutX="60.0" layoutY="70.0" />
+                                <Label layoutX="14.0" layoutY="74.0" text="Color:"/>
+                                <TextField fx:id="txtColor" layoutX="90.0" layoutY="70.0" prefWidth="180.0"/>
 
-                                <Label layoutX="14.0" layoutY="105.0" text="Serial:" />
-                                <TextField fx:id="txtSerial" layoutX="60.0" layoutY="101.0" />
+                                <Label layoutX="14.0" layoutY="105.0" text="Serial:"/>
+                                <TextField fx:id="txtSerial" layoutX="90.0" layoutY="101.0" prefWidth="180.0"/>
 
-                                <Label layoutX="14.0" layoutY="136.0" text="Tipo:" />
-                                <ComboBox fx:id="comboTipo" layoutX="60.0" layoutY="132.0" prefWidth="180.0" promptText="Seleccione el tipo" />
+                                <Label layoutX="14.0" layoutY="136.0" text="Año:"/>
+                                <TextField fx:id="txtAnioBici" layoutX="90.0" layoutY="132.0" prefWidth="180.0" promptText="Ej: 2022"/>
 
-                                <Button fx:id="btnGuardarBicicleta" layoutX="82.0" layoutY="170.0" mnemonicParsing="false" onAction="#guardarBicicleta" text="Guardar Bicicleta" />
+                                <Label layoutX="300.0" layoutY="14.0" text="Tipo:"/>
+                                <ComboBox fx:id="comboTipo" layoutX="350.0" layoutY="10.0" prefWidth="220.0" promptText="Seleccione el tipo"/>
+
+                                <Label layoutX="300.0" layoutY="43.0" text="Cliente:"/>
+                                <ComboBox fx:id="comboClienteBici"
+                                          layoutX="350.0"
+                                          layoutY="39.0"
+                                          prefWidth="220.0"
+                                          promptText="Seleccione el cliente"/>
+
+                                <Button fx:id="btnGuardarBicicleta"
+                                        layoutX="270.0"
+                                        layoutY="175.0"
+                                        onAction="#guardarBicicleta"
+                                        text="Guardar Bicicleta"/>
 
                             </children>
                         </AnchorPane>
