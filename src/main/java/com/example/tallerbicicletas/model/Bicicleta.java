@@ -6,13 +6,15 @@ public class Bicicleta {
     private String modelo;
     private String color;
     private String serial;
+    private TipoBicicleta tipo;
 
     //Constructor
-    public Bicicleta(String marca, String modelo, String color, String serial) {
+    public Bicicleta(String marca, String modelo, String color, String serial, TipoBicicleta tipo) {
         this.marca = marca;
         this.modelo = modelo;
         this.color = color;
         this.serial = serial;
+        this.tipo = tipo;
     }
 
     //Getters y setterss
@@ -48,6 +50,10 @@ public class Bicicleta {
         this.serial = serial;
     }
 
+    public TipoBicicleta getTipo() {
+        return tipo;
+    }
+
     //Método toString
     @Override
     public String toString() {
@@ -56,6 +62,7 @@ public class Bicicleta {
                 ", modelo='" + modelo + '\'' +
                 ", color='" + color + '\'' +
                 ", serial='" + serial + '\'' +
+                ", tipo=" + tipo +
                 '}';
     }
 }

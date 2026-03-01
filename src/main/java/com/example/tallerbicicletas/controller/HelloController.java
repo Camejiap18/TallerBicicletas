@@ -7,6 +7,8 @@ import com.example.tallerbicicletas.model.Taller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
+import com.example.tallerbicicletas.model.TipoBicicleta;
 
 public class HelloController {
 
@@ -24,14 +26,17 @@ public class HelloController {
     @FXML private TextField txtSueldo;
     @FXML private Button btnGuardarMecanico;
 
+    // --- BICICLETAS ---
     @FXML private TextField txtMarca;
     @FXML private TextField txtModelo;
     @FXML private TextField txtColor;
     @FXML private TextField txtSerial;
     @FXML private Button btnGuardarBicicleta;
+    @FXML private ComboBox<TipoBicicleta> comboTipo;
 
     private final Taller taller = new Taller("Taller BiciCentral", "Armenia", "123456ABC");
 
+    //Método para guardar bicicletas
     @FXML
     private void guardarCliente() {
         String nombre = txtNombre.getText();
@@ -52,6 +57,7 @@ public class HelloController {
         txtDireccion.clear();
     }
 
+    //Método para guardar bicicletas
     @FXML
     private void guardarMecanico() {
         String nombre = txtNombreMecanico.getText();
@@ -83,6 +89,7 @@ public class HelloController {
         txtSueldo.clear();
     }
 
+    //Método para guardar bicicletas
     @FXML
     private void guardarBicicleta(){
 
@@ -91,7 +98,14 @@ public class HelloController {
         String color = txtColor.getText();
         String serial = txtSerial.getText();
 
-        Bicicleta bicicleta = new Bicicleta(marca, modelo, color, serial);
+        //Condición para seleccionar un tipo
+        TipoBicicleta tipo = comboTipo.getValue();
+        if (tipo == null) {
+            System.out.println("Selecciona un tipo de bicicleta.");
+            return;
+        }
+
+        Bicicleta bicicleta = new Bicicleta(marca, modelo, color, serial, tipo);
         taller.agregarBicicleta(bicicleta);
 
         System.out.println("Bicicleta guardada:");
@@ -102,5 +116,12 @@ public class HelloController {
         txtModelo.clear();
         txtColor.clear();
         txtSerial.clear();
+        comboTipo.setValue(null);
+    }
+
+    //Método para incializar el combobox
+    @FXML
+    public void initialize() {
+        comboTipo.getItems().addAll(TipoBicicleta.values());
     }
 }
