@@ -2,6 +2,8 @@ package com.example.tallerbicicletas.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+import com.example.tallerbicicletas.model.Orden;
 
 public class Taller {
 
@@ -14,6 +16,7 @@ public class Taller {
     private List<Cliente> clientes;
     private ArrayList<Mecanico> mecanicos = new ArrayList<>();
     private List<Bicicleta> bicicletas = new ArrayList<>();
+    private ArrayList<Orden> ordenes;
 
     //Constructor
     public Taller(String nombre, String direccion, String nit){
@@ -21,6 +24,7 @@ public class Taller {
         this.direccion = direccion;
         this.nit = nit;
         this.clientes = new ArrayList<>();
+        this.ordenes = new ArrayList<>();
     }
     //Método para agregar clientes
     public void agregarCliente(Cliente cliente) {
@@ -42,6 +46,11 @@ public class Taller {
         bicicletas.add(bicicleta);
     }
 
+    //Método para agregar una órden
+    public void agregarOrden(Orden orden) {
+        ordenes.add(orden);
+    }
+
     //Getters y setters
     public String getNombre() {
         return nombre;
@@ -55,6 +64,26 @@ public class Taller {
         return nit;
     }
 
+    public int getCantidadOrdenes() {
+        return ordenes.size();
+    }
+
+    public ArrayList<Orden> getOrdenes() {
+        return ordenes;
+    }
+
+    public List<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public ArrayList<Mecanico> getMecanicos() {
+        return mecanicos;
+    }
+
+    public List<Bicicleta> getBicicletas() {
+        return bicicletas;
+    }
+
     //Método toString
     @Override
     public String toString() {
@@ -63,6 +92,7 @@ public class Taller {
                 "\nNIT: " + nit +
                 "\nClientes registrados: " + clientes.size() +
                 "\nMecánicos registrados: " + mecanicos.size() +
-                "\nBicicletas registradas: " + bicicletas.size();
+                "\nBicicletas registradas: " + bicicletas.size() +
+                "\nÓrdenes registradas: " + ordenes.size();
     }
 }

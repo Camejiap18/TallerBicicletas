@@ -62,7 +62,7 @@
                                 <TextField fx:id="txtSerial" layoutX="60.0" layoutY="101.0" />
 
                                 <Button fx:id="btnGuardarBicicleta" layoutX="82.0" layoutY="164.0" mnemonicParsing="false" onAction="#guardarBicicleta" text="Guardar Bicicleta" />
-                        <ComboBox fx:id="comboTipo" layoutX="59.0" layoutY="132.0" prefWidth="150.0" />
+                        <ComboBox fx:id="comboTipo" layoutX="59.0" layoutY="132.0" prefWidth="150.0" promptText="Seleccione el tipo" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -94,7 +94,17 @@
 
                 <Tab text="Órdenes">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="comboClienteOrden" layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="171.0" promptText=" Seleccione el Cliente" />
+                        <ComboBox fx:id="comboBicicletaOrden" layoutX="14.0" layoutY="46.0" prefHeight="26.0" prefWidth="170.0" promptText="Seleccione la Bicicleta" />
+                        <ComboBox fx:id="comboMecanicoOrden" layoutX="14.0" layoutY="79.0" prefHeight="26.0" prefWidth="170.0" promptText="Seleccione el Mecánico" />
+                        <TextField fx:id="txtMotivoOrden" layoutX="214.0" layoutY="33.0" />
+                        <TextField fx:id="txtProblemaOrden" layoutX="214.0" layoutY="79.0" />
+                        <Button fx:id="btnCrearOrden" layoutX="133.0" layoutY="134.0" mnemonicParsing="false" onAction="#crearOrden" text="Crear Órden" />
+                        <Label layoutX="214.0" layoutY="14.0" text="Motivo del Servicio:" />
+                        <Label layoutX="214.0" layoutY="63.0" text="Descripción del Problema: " />
+                     </children></AnchorPane>
                     </content>
                 </Tab>
 

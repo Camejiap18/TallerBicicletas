@@ -3,6 +3,7 @@ package com.example.tallerbicicletas.controller;
 import com.example.tallerbicicletas.model.Bicicleta;
 import com.example.tallerbicicletas.model.Cliente;
 import com.example.tallerbicicletas.model.Mecanico;
+import com.example.tallerbicicletas.model.Orden;
 import com.example.tallerbicicletas.model.Taller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -34,6 +35,20 @@ public class HelloController {
     @FXML private Button btnGuardarBicicleta;
     @FXML private ComboBox<TipoBicicleta> comboTipo;
 
+    // --- ÓRDENES ---
+    @FXML private ComboBox<Cliente> comboClienteOrden;
+    @FXML private ComboBox<Bicicleta> comboBicicletaOrden;
+    @FXML private ComboBox<Mecanico> comboMecanicoOrden;
+    @FXML private TextField txtMotivoOrden;
+    @FXML private TextField txtProblemaOrden;
+
+    //Método para refresacar los combos
+    private void refrescarCombosOrden() {
+        comboClienteOrden.getItems().setAll(taller.getClientes());
+        comboBicicletaOrden.getItems().setAll(taller.getBicicletas());
+        comboMecanicoOrden.getItems().setAll(taller.getMecanicos());
+    }
+
     private final Taller taller = new Taller("Taller BiciCentral", "Armenia", "123456ABC");
 
     //Método para guardar bicicletas
@@ -55,6 +70,8 @@ public class HelloController {
         txtIdentificacion.clear();
         txtTelefono.clear();
         txtDireccion.clear();
+
+        refrescarCombosOrden();
     }
 
     //Método para guardar bicicletas
@@ -87,6 +104,8 @@ public class HelloController {
         txtIdentificacionMecanico.clear();
         txtEspecialidad.clear();
         txtSueldo.clear();
+
+        refrescarCombosOrden();
     }
 
     //Método para guardar bicicletas
@@ -117,11 +136,54 @@ public class HelloController {
         txtColor.clear();
         txtSerial.clear();
         comboTipo.setValue(null);
+
+        refrescarCombosOrden();
+    }
+
+    //Método para crear la órden
+    @FXML
+    private void crearOrden() {
+
+        Cliente cliente = (Cliente) comboClienteOrden.getValue();
+        Bicicleta bicicleta = (Bicicleta) comboBicicletaOrden.getValue();
+        Mecanico mecanico = (Mecanico) comboMecanicoOrden.getValue();
+
+        String motivo = txtMotivoOrden.getText();
+        String descripcion = txtProblemaOrden.getText();
+
+        if(cliente == null || bicicleta == null || mecanico == null) {
+            System.out.println("Debes seleccionar cliente, bicicleta y mecánico");
+            return;
+        }
+
+        Orden orden = new Orden(cliente, bicicleta, mecanico, descripcion, motivo);
+        taller.agregarOrden(orden);
+
+        System.out.println("Orden creada:");
+        System.out.println(orden);
+        System.out.println(taller);
+
+        //para que la orden se "limpie"
+        txtMotivoOrden.clear();
+        txtProblemaOrden.clear();
+        comboClienteOrden.setValue(null);
+        comboBicicletaOrden.setValue(null);
+        comboMecanicoOrden.setValue(null);
     }
 
     //Método para incializar el combobox
     @FXML
     public void initialize() {
+
+        // Combo de tipos de bicicleta
         comboTipo.getItems().addAll(TipoBicicleta.values());
+
+        // Combos de Órdenes
+        comboClienteOrden.getItems().setAll(taller.getClientes());
+        comboBicicletaOrden.getItems().setAll(taller.getBicicletas());
+        comboMecanicoOrden.getItems().setAll(taller.getMecanicos());
+
+        refrescarCombosOrden();
     }
+
 }
