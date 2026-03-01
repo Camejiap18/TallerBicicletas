@@ -36,8 +36,10 @@ public class HelloController {
     @FXML private TextField txtModelo;
     @FXML private TextField txtColor;
     @FXML private TextField txtSerial;
+    @FXML private TextField txtAnioBici;
     @FXML private Button btnGuardarBicicleta;
     @FXML private ComboBox<TipoBicicleta> comboTipo;
+    @FXML private ComboBox<Cliente> comboClienteBici;
 
     // --- ÓRDENES ---
     @FXML private ComboBox<Cliente> comboClienteOrden;
@@ -45,6 +47,9 @@ public class HelloController {
     @FXML private ComboBox<Mecanico> comboMecanicoOrden;
     @FXML private TextField txtMotivoOrden;
     @FXML private TextField txtProblemaOrden;
+    @FXML private TextField txtDiagnosticoOrden;
+    @FXML private TextField txtTrabajoOrden;
+    @FXML private TextField txtCostoTrabajo;
 
     // --- CONSULTAS ---
     @FXML private TextArea txtAreaConsultas;
@@ -62,7 +67,9 @@ public class HelloController {
 
     private final Taller taller = new Taller("Taller BiciCentral", "Armenia", "123456ABC");
 
-    //Método para guardar bicicletas
+    private Orden ordenActual;
+
+    //Método para guardar clientes
     @FXML
     private void guardarCliente() {
         String nombre = txtNombre.getText();
@@ -85,7 +92,7 @@ public class HelloController {
         refrescarCombosOrden();
     }
 
-    //Método para guardar bicicletas
+    //Método para guardar mecánicos
     @FXML
     private void guardarMecanico() {
         String nombre = txtNombreMecanico.getText();
@@ -118,7 +125,7 @@ public class HelloController {
         refrescarCombosOrden();
     }
 
-    //Método para guardar bicicletas
+    //Método para guardar la bicicleta
     @FXML
     private void guardarBicicleta(){
 
@@ -127,14 +134,29 @@ public class HelloController {
         String color = txtColor.getText();
         String serial = txtSerial.getText();
 
-        //Condición para seleccionar un tipo
-        TipoBicicleta tipo = comboTipo.getValue();
-        if (tipo == null) {
-            System.out.println("Selecciona un tipo de bicicleta.");
+        Cliente cliente = comboClienteBici.getValue();
+
+        if(cliente == null){
+            System.out.println("Seleccione un cliente para la bicicleta.");
             return;
         }
 
-        Bicicleta bicicleta = new Bicicleta(marca, modelo, color, serial, tipo);
+        TipoBicicleta tipo = comboTipo.getValue();
+
+        if (tipo == null) {
+            System.out.println("Seleccione un tipo de bicicleta.");
+            return;
+        }
+
+        int anio;
+        try {
+            anio = Integer.parseInt(txtAnioBici.getText());
+        } catch (Exception e) {
+            System.out.println("Ingrese un año válido.");
+            return;
+        }
+
+        Bicicleta bicicleta = new Bicicleta(marca, modelo, color, serial, tipo, cliente, anio);
         taller.agregarBicicleta(bicicleta);
 
         System.out.println("Bicicleta guardada:");
@@ -145,8 +167,9 @@ public class HelloController {
         txtModelo.clear();
         txtColor.clear();
         txtSerial.clear();
+        txtAnioBici.clear();
         comboTipo.setValue(null);
-        comboHistorialBici.getItems().setAll(taller.getBicicletas());
+        comboClienteBici.setValue(null);
 
         refrescarCombosOrden();
     }
@@ -167,11 +190,15 @@ public class HelloController {
             return;
         }
 
-        Orden orden = new Orden(cliente, bicicleta, mecanico, descripcion, motivo);
-        taller.agregarOrden(orden);
+        ordenActual = new Orden(cliente, bicicleta, mecanico, descripcion, motivo);
+        taller.agregarOrden(ordenActual);
+
+        if (txtDiagnosticoOrden != null && txtDiagnosticoOrden.getText() != null) {
+            ordenActual.setDiagnostico(txtDiagnosticoOrden.getText());
+        }
 
         System.out.println("Orden creada:");
-        System.out.println(orden);
+        System.out.println(ordenActual);
         System.out.println(taller);
 
         //para que la orden se "limpie"
@@ -180,6 +207,27 @@ public class HelloController {
         comboClienteOrden.setValue(null);
         comboBicicletaOrden.setValue(null);
         comboMecanicoOrden.setValue(null);
+    }
+
+    //Método para cerrar la órden
+    @FXML
+    private void cerrarOrden() {
+
+        if (ordenActual == null) {
+            txtAreaConsultas.setText("No hay una orden activa. Primero crea una orden.");
+            return;
+        }
+
+        String diagnosticoFinal = txtDiagnosticoOrden.getText();
+
+        if (diagnosticoFinal == null || diagnosticoFinal.trim().isEmpty()) {
+            txtAreaConsultas.setText("Escribe el diagnóstico antes de cerrar la orden.");
+            return;
+        }
+
+        ordenActual.cerrarOrden(diagnosticoFinal);
+
+        txtAreaConsultas.setText("Orden cerrada.\n\n" + ordenActual.toTextoBonito());
     }
 
     //Método para ver el historial de la bicicleta
@@ -317,6 +365,46 @@ public class HelloController {
 
         txtAreaConsultas.setText(resultado.toString());
     }
+
+    //Método para agregar trabajo a la órden
+    @FXML
+    private void agregarTrabajoOrden() {
+
+        if (ordenActual == null) {
+            txtAreaConsultas.setText("Primero crea una orden. Luego puedes agregar trabajos.");
+            return;
+        }
+
+        String trabajo = txtTrabajoOrden.getText();
+        String costoTexto = txtCostoTrabajo.getText();
+
+        if (trabajo == null || trabajo.trim().isEmpty()) {
+            txtAreaConsultas.setText("Escribe el trabajo realizado.");
+            return;
+        }
+
+        double costo;
+        try {
+            costoTexto = costoTexto.replace(".", "").replace(",", "");
+            costo = Double.parseDouble(costoTexto);
+        } catch (Exception e) {
+            txtAreaConsultas.setText("Costo inválido. Escribe solo números.");
+            return;
+        }
+
+        if (txtDiagnosticoOrden != null && txtDiagnosticoOrden.getText() != null) {
+            ordenActual.setDiagnostico(txtDiagnosticoOrden.getText());
+        }
+
+        ordenActual.agregarTrabajo(trabajo, costo);
+
+        txtAreaConsultas.setText("Trabajo agregado.\n\n" + ordenActual.toTextoBonito());
+
+        // para limpiar los campos de trabajo
+        txtTrabajoOrden.clear();
+        txtCostoTrabajo.clear();
+    }
+
     //Método para mostrar las consultas
     @FXML
     private void mostrarConsultas() {
@@ -329,15 +417,31 @@ public class HelloController {
     public void initialize() {
 
         // Combo de tipos de bicicleta
-        comboTipo.getItems().addAll(TipoBicicleta.values());
+        if (comboTipo != null) {
+            comboTipo.getItems().addAll(TipoBicicleta.values());
+        }
 
-        // Combos de Órdenes
-        comboClienteOrden.getItems().setAll(taller.getClientes());
-        comboBicicletaOrden.getItems().setAll(taller.getBicicletas());
-        comboMecanicoOrden.getItems().setAll(taller.getMecanicos());
+        // Combo cliente bicicleta
+        if (comboClienteBici != null) {
+            comboClienteBici.getItems().setAll(taller.getClientes());
+        }
 
-        comboHistorialBici.getItems().setAll(taller.getBicicletas());
+        // Combos de órdenes
+        if (comboClienteOrden != null) {
+            comboClienteOrden.getItems().setAll(taller.getClientes());
+        }
 
-        refrescarCombosOrden();
+        if (comboBicicletaOrden != null) {
+            comboBicicletaOrden.getItems().setAll(taller.getBicicletas());
+        }
+
+        if (comboMecanicoOrden != null) {
+            comboMecanicoOrden.getItems().setAll(taller.getMecanicos());
+        }
+
+        // Combo historial
+        if (comboHistorialBici != null) {
+            comboHistorialBici.getItems().setAll(taller.getBicicletas());
+        }
     }
 }

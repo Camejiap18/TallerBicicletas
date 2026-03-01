@@ -1,5 +1,8 @@
 package com.example.tallerbicicletas.model;
 
+import com.example.tallerbicicletas.model.Cliente;
+import com.example.tallerbicicletas.model.TipoBicicleta;
+
 public class Bicicleta {
 
     private String marca;
@@ -7,62 +10,45 @@ public class Bicicleta {
     private String color;
     private String serial;
     private TipoBicicleta tipo;
+    private Cliente cliente;
+    private int anio;
 
-    //Constructor
-    public Bicicleta(String marca, String modelo, String color, String serial, TipoBicicleta tipo) {
+    public Bicicleta(String marca, String modelo, String color,
+                     String serial, TipoBicicleta tipo, Cliente cliente, int anio) {
+
         this.marca = marca;
         this.modelo = modelo;
         this.color = color;
         this.serial = serial;
         this.tipo = tipo;
+        this.cliente = cliente;
+        this.anio = anio;
     }
 
-    //Getters y setterss
-    public String getMarca() {
-        return marca;
-    }
+    public String getMarca() {return marca; }
+    public void setMarca(String marca) { this.marca = marca; }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
+    public String getModelo() { return modelo; }
+    public void setModelo(String modelo) { this.modelo = modelo; }
 
-    public String getModelo() {
-        return modelo;
-    }
+    public String getColor() { return color; }
+    public void setColor(String color) { this.color = color; }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
+    public String getSerial() { return serial; }
+    public void setSerial(String serial) { this.serial = serial; }
 
-    public String getColor() {
-        return color;
-    }
+    public TipoBicicleta getTipo() { return tipo; }
+    public void setTipo(TipoBicicleta tipo) { this.tipo = tipo; }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
+    public Cliente getCliente() { return cliente; }
+    public void setCliente(Cliente cliente) { this.cliente = cliente; }
 
-    public String getSerial() {
-        return serial;
-    }
+    public int getAnio() { return anio; }
+    public void setAnio(int anio) { this.anio = anio; }
 
-    public void setSerial(String serial) {
-        this.serial = serial;
-    }
-
-    public TipoBicicleta getTipo() {
-        return tipo;
-    }
-
-    //Método toString
     @Override
     public String toString() {
-        return "Bicicleta{" +
-                "marca='" + marca + '\'' +
-                ", modelo='" + modelo + '\'' +
-                ", color='" + color + '\'' +
-                ", serial='" + serial + '\'' +
-                ", tipo=" + tipo +
-                '}';
+        String dueno = (cliente != null) ? cliente.getNombre() : "Sin cliente";
+        return serial + " - " + marca + " " + modelo + " (" + tipo + ", " + anio + ") - " + dueno;
     }
 }

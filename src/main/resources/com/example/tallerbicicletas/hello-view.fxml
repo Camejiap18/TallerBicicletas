@@ -104,17 +104,21 @@
                     <content>
                         <AnchorPane prefHeight="220.0" prefWidth="700.0">
                             <children>
-                                <ComboBox fx:id="comboClienteOrden" layoutX="14.0" layoutY="14.0" prefWidth="220.0" promptText="Seleccione el Cliente" />
-                                <ComboBox fx:id="comboBicicletaOrden" layoutX="14.0" layoutY="46.0" prefWidth="220.0" promptText="Seleccione la Bicicleta" />
-                                <ComboBox fx:id="comboMecanicoOrden" layoutX="14.0" layoutY="79.0" prefWidth="220.0" promptText="Seleccione el Mecánico" />
+                        <HBox layoutX="14.0" layoutY="14.0">
+                           <children>
+                                      <ComboBox fx:id="comboClienteOrden" prefWidth="220.0" promptText="Seleccione el Cliente" />
+                                      <ComboBox fx:id="comboBicicletaOrden" prefWidth="220.0" promptText="Seleccione la Bicicleta" />
+                                      <ComboBox fx:id="comboMecanicoOrden" prefWidth="220.0" promptText="Seleccione el Mecánico" />
+                           </children>
+                        </HBox>
+                                <TextField fx:id="txtMotivoOrden" layoutX="14.0" layoutY="53.0" prefWidth="250.0" promptText="Motivo del Servicio" />
+                                <TextField fx:id="txtProblemaOrden" layoutX="14.0" layoutY="90.0" prefWidth="250.0" promptText="Descripción del Problema" />
 
-                                <Label layoutX="270.0" layoutY="14.0" text="Motivo del Servicio:" />
-                                <TextField fx:id="txtMotivoOrden" layoutX="270.0" layoutY="33.0" prefWidth="250.0" />
-
-                                <Label layoutX="270.0" layoutY="63.0" text="Descripción del Problema:" />
-                                <TextField fx:id="txtProblemaOrden" layoutX="270.0" layoutY="79.0" prefWidth="250.0" />
-
-                                <Button fx:id="btnCrearOrden" layoutX="270.0" layoutY="130.0" mnemonicParsing="false" onAction="#crearOrden" text="Crear Orden" />
+                                <Button fx:id="btnCrearOrden" layoutX="293.0" layoutY="90.0" mnemonicParsing="false" onAction="#crearOrden" text="Crear Orden" />
+                        <TextField fx:id="txtDiagnosticoOrden" layoutX="14.0" layoutY="129.0" prefHeight="26.0" prefWidth="250.0" promptText="Diagnóstico" />
+                        <TextField fx:id="txtTrabajoOrden" layoutX="14.0" layoutY="165.0" prefHeight="26.0" prefWidth="250.0" promptText="Trabajo Realizado (ej: Ajuste frenos)" />
+                        <TextField fx:id="txtCostoTrabajo" layoutX="14.0" layoutY="204.0" prefHeight="26.0" prefWidth="250.0" promptText="Costo (ej: 50000)" />
+                        <Button fx:id="btnCerrarOrden" layoutX="290.0" layoutY="142.0" mnemonicParsing="false" onAction="#cerrarOrden" text="Cerrar Orden" />
                             </children>
                         </AnchorPane>
                     </content>
